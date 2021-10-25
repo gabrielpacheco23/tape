@@ -23,7 +23,7 @@ fn main() {
     let mut compiler = Compiler::new(&source_code);
     let program = compiler.compile();
 
-    debug_show(&program);
+    // debug_show(&program);
 
     let mut vm = Vm::new();
     vm.run(&program);

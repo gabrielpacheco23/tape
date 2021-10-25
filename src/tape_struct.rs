@@ -1,5 +1,3 @@
-#![allow(unused)]
-
 use std::mem::MaybeUninit;
 use std::ops::{Drop, Index, IndexMut};
 
@@ -24,6 +22,7 @@ impl Tape {
         unsafe { self.array.assume_init_ref() }.capacity()
     }
 
+    #[allow(dead_code)]
     pub fn len(&self) -> usize {
         unsafe { self.array.assume_init_ref() }.len()
     }
