@@ -1,8 +1,9 @@
-// TODO: Create a new cell-based, brainfuck-like, esoteric language.
+#![feature(maybe_uninit_extra)]
 
 mod compiler;
 mod parser;
 mod scanner;
+mod tape_struct;
 mod vm;
 
 use compiler::Compiler;
@@ -22,7 +23,7 @@ fn main() {
     let mut compiler = Compiler::new(&source_code);
     let program = compiler.compile();
 
-    // debug_show(&program);
+    debug_show(&program);
 
     let mut vm = Vm::new();
     vm.run(&program);
