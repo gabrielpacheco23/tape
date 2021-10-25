@@ -1,4 +1,4 @@
-#![feature(maybe_uninit_extra)]
+//#![feature(maybe_uninit_extra)]
 
 mod compiler;
 mod parser;
@@ -10,6 +10,9 @@ use compiler::Compiler;
 use std::env;
 use std::fs;
 use vm::{Program, Vm};
+
+// TODO: make a function that translates
+// brainfuck to tape for testing tape capacity
 
 fn main() {
     let args: Vec<String> = env::args().collect();
