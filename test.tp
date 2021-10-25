@@ -1,0 +1,23 @@
+incr tape[idx]
++4
+
+loop (
+    incr idx
+    incr tape[idx]
+    +11
+    incr idx
+    incr tape[idx]
+    +1
+
+    decr idx
+    +1
+    decr tape[idx]
+)
+
+incr idx
+incr tape[idx]
++4
+putch
+
+incr idx
+putch

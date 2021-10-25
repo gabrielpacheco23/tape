@@ -83,17 +83,6 @@ impl Scanner {
         }
     }
 
-    pub fn scan_tokens(&mut self) -> Vec<Token> {
-        let mut tokens = vec![];
-
-        while !self.is_at_end() {
-            // self.start = self.current;
-            tokens.push(self.scan_token());
-        }
-
-        tokens
-    }
-
     pub fn scan_token(&mut self) -> Token {
         self.skip_whitespaces();
 
