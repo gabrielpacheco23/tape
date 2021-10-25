@@ -48,8 +48,8 @@ impl Compiler {
         self.emit(OpCode::MakeTape(30_000));
     }
 
-    // emit `make tape[n]` and `make ptr: idx`
-    // TODO: make this work, going wrong
+    // TODO: make this work, going wrong:
+    // `make ptr: idx`
     fn make_decls(&mut self) {
         if self.parser.matches(TokenType::Make) {
             self.declare_vars();
@@ -214,10 +214,10 @@ impl Compiler {
     }
 
     pub fn compile(&mut self) -> Program {
+        self.parser.advance();
         // verify if we have a make tape decl
         self.make_decls();
 
-        //self.parser.advance();
         while !self.parser.matches(TokenType::EOF) {
             self.statement();
         }

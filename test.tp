@@ -1,3 +1,5 @@
+make tape[3]
+
 incr tape[idx]
 +4
 

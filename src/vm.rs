@@ -1,5 +1,7 @@
 use std::io::Read;
 
+use crate::tape_struct::Tape;
+
 #[derive(Debug, Clone, Copy)]
 pub enum BracketKind {
     Open,
@@ -20,19 +22,15 @@ pub enum OpCode {
 
 pub type Program = Vec<OpCode>;
 
-const TAPE_CAP: usize = 30_000;
-
-// TODO: make a `Tape` struct that handles the tape
-// maybe using `MaybeUninit`
 pub struct Vm {
-    tape: [u8; TAPE_CAP],
+    tape: Tape,
     index: usize,
 }
 
 impl Vm {
     pub fn new() -> Self {
         Vm {
-            tape: [0; TAPE_CAP],
+            tape: Tape::new(),
             index: 0,
         }
     }
@@ -43,16 +41,15 @@ impl Vm {
         let mut iter = 0;
         while iter < program.len() {
             match program[iter] {
-                #[allow(unused)]
-                // TODO: Make this `make` work!
                 MakeTape(size) => {
-                    //self.tape = Vec::with_capacity(size);
+                    self.tape.init(size);
                 }
                 IncrPtr => {
-                    if self.index >= TAPE_CAP {
+                    if self.index >= self.tape.size() {
                         println!(
                             "self.index out of range: `{}` is greater than `{}`",
-                            self.index, TAPE_CAP
+                            self.index,
+                            self.tape.size()
                         );
                         std::process::exit(1);
                     }

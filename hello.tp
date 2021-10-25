@@ -1,0 +1,30 @@
+make tape[13]
+
+incr tape[idx] +9
+loop (
+  incr idx incr tape[idx] +7
+  incr idx incr tape[idx] +10
+  incr idx incr tape[idx] +9
+  incr idx incr tape[idx] +3
+  incr idx incr tape[idx] +2
+  incr idx incr tape[idx] +7
+  incr idx incr tape[idx] +11
+  incr idx incr tape[idx] +10
+  incr idx incr tape[idx] +9
+  incr idx incr tape[idx] +10
+  incr idx incr tape[idx] +2
+  incr idx incr tape[idx]
+  decr idx +11 decr tape[idx]
+)
+incr idx decr tape[idx] putch
+incr idx decr tape[idx] +1 putch
+incr idx decr tape[idx] +2 putch
+incr idx incr tape[idx] +3 putch
+incr idx incr tape[idx] +1 putch
+incr idx decr tape[idx] +2 putch
+incr idx decr tape[idx] +2 putch
+incr idx putch
+incr idx putch
+incr idx incr tape[idx] putch
+incr idx incr tape[idx] +2 putch
+incr idx putch
