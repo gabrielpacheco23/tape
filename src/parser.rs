@@ -1,4 +1,3 @@
-#![allow(unused)]
 use crate::scanner::{Scanner, Token, TokenType};
 
 pub struct Parser {

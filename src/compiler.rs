@@ -1,7 +1,5 @@
-#![allow(unused)]
-
 use crate::parser::Parser;
-use crate::scanner::{Scanner, Token, TokenType};
+use crate::scanner::{Scanner, TokenType};
 use crate::vm::{BracketKind, OpCode, Program};
 
 pub struct Compiler {
@@ -34,10 +32,7 @@ impl Compiler {
             let num_token = self.parser.previous.clone();
             let num = match num_token.lexeme.parse::<usize>() {
                 Ok(num) => num,
-                Err(err) => {
-                    self.parser.error_at_current("Could not parse number");
-                    return;
-                }
+                Err(_) => self.parser.error_at_current("Could not parse number"),
             };
 
             self.tape_name = var_name;
@@ -72,15 +67,14 @@ impl Compiler {
             if self.tape_name != ident.lexeme {
                 self.parser
                     .error_at_current(&format!("`{}` not defined", &ident.lexeme));
-                return;
             }
+
             self.parser.consume(TokenType::Ident);
             let idx = self.parser.previous.clone();
 
             if self.idx_name != idx.lexeme {
                 self.parser
                     .error_at_current(&format!("`{}` not defined", &idx.lexeme));
-                return;
             }
 
             self.parser.consume(TokenType::RightBrace);
@@ -89,7 +83,6 @@ impl Compiler {
             if self.idx_name != ident.lexeme {
                 self.parser
                     .error_at_current(&format!("`{}` not defined", &ident.lexeme));
-                return;
             }
 
             self.emit(OpCode::IncrPtr);
@@ -104,15 +97,14 @@ impl Compiler {
             if self.tape_name != ident.lexeme {
                 self.parser
                     .error_at_current(&format!("`{}` not defined", &ident.lexeme));
-                return;
             }
+
             self.parser.consume(TokenType::Ident);
             let idx = self.parser.previous.clone();
 
             if self.idx_name != idx.lexeme {
                 self.parser
                     .error_at_current(&format!("`{}` not defined", &idx.lexeme));
-                return;
             }
 
             self.parser.consume(TokenType::RightBrace);
@@ -121,7 +113,6 @@ impl Compiler {
             if self.idx_name != ident.lexeme {
                 self.parser
                     .error_at_current(&format!("`{}` not defined", &ident.lexeme));
-                return;
             }
 
             self.emit(OpCode::DecrPtr);
@@ -146,12 +137,11 @@ impl Compiler {
 
     fn loop_stmt(&mut self) {
         self.parser.consume(TokenType::LeftParen);
-        let mut loop_start = self.program.len();
+        let loop_start = self.program.len();
 
         let exit_jump = self.emit_jump(OpCode::Jump(0, BracketKind::Close));
         self.loop_block();
 
-        //self.emit(OpCode::Jump(offset, BracketKind::Open));
         self.emit_loop(loop_start);
         self.patch_jump(exit_jump);
     }
@@ -184,9 +174,8 @@ impl Compiler {
         let num_token = self.parser.previous.clone();
         let num = match num_token.lexeme.parse::<usize>() {
             Ok(num) => num,
-            Err(err) => {
+            Err(_) => {
                 self.parser.error_at_current("Could not parse number");
-                return;
             }
         };
 
@@ -220,7 +209,6 @@ impl Compiler {
         } else if self.parser.matches(TokenType::Plus) {
             self.plus_stmt();
         } else {
-            // panic!("Unknow statement: {:#?}", &self.parser.current);
             self.parser.advance();
         }
     }

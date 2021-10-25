@@ -1,5 +1,3 @@
-#![allow(unused)]
-use std::collections::HashMap;
 use std::io::Read;
 
 #[derive(Debug, Clone, Copy)]
@@ -10,7 +8,6 @@ pub enum BracketKind {
 
 #[derive(Debug, Copy, Clone)]
 pub enum OpCode {
-    Nop,
     MakeTape(usize),
     IncrPtr,
     DecrPtr,
@@ -25,6 +22,7 @@ pub type Program = Vec<OpCode>;
 
 const TAPE_CAP: usize = 30_000;
 
+// TODO: make a `Tape` struct that handles the tape
 pub struct Vm {
     tape: [u8; TAPE_CAP],
     index: usize,
@@ -41,12 +39,10 @@ impl Vm {
     pub fn run(&mut self, program: &Program) {
         use OpCode::*;
 
-        //   let mut self.tape = [0u8; TAPE_CAP];
-        //  let mut self.index = 0_usize;
-
         let mut iter = 0;
         while iter < program.len() {
             match program[iter] {
+                #[allow(unused)]
                 // TODO: Make this `make` work!
                 MakeTape(size) => {
                     //self.tape = Vec::with_capacity(size);
@@ -94,12 +90,8 @@ impl Vm {
                         }
                     }
                 },
-                Nop => {}
             }
             iter += 1;
-
-            //           println!("self.index: {}", index);
-            //         println!("value: {}", self.tape[self.index]);
         }
     }
 }
