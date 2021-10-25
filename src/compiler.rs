@@ -3,14 +3,12 @@
 use crate::parser::Parser;
 use crate::scanner::{Scanner, Token, TokenType};
 use crate::vm::{BracketKind, OpCode, Program};
-use std::{collections::HashMap, ops::Index};
 
 pub struct Compiler {
     pub parser: Parser,
     pub program: Vec<OpCode>,
     pub tape_name: String,
     pub idx_name: String,
-    brace_map: BraceMap,
 }
 
 impl Compiler {
@@ -20,7 +18,6 @@ impl Compiler {
             program: vec![],
             tape_name: "tape".to_owned(),
             idx_name: "idx".to_owned(),
-            brace_map: BraceMap::new(),
         }
     }
 
@@ -238,54 +235,5 @@ impl Compiler {
         }
 
         self.program.clone()
-    }
-}
-
-#[derive(Debug)]
-struct BraceMap {
-    map: HashMap<usize, usize>,
-}
-
-impl BraceMap {
-    fn new() -> Self {
-        Self {
-            map: HashMap::new(),
-        }
-    }
-
-    fn set(&mut self, key: usize, value: usize) {
-        self.map.insert(key, value);
-    }
-
-    fn get(&self, key: usize) -> &usize {
-        self.map.get(&key).unwrap()
-    }
-
-    fn build(code: &[Token]) -> Self {
-        let mut stack = Vec::new();
-        let mut brace_map = BraceMap::new();
-
-        for i in 0..code.len() {
-            if code[i].typ == TokenType::LeftParen {
-                stack.push(i);
-            }
-
-            if code[i].typ == TokenType::RightParen {
-                if let Some(start) = stack.pop() {
-                    brace_map.set(start, i);
-                    brace_map.set(i, start);
-                }
-            }
-        }
-
-        brace_map
-    }
-}
-
-impl Index<usize> for BraceMap {
-    type Output = usize;
-
-    fn index(&self, index: usize) -> &Self::Output {
-        self.get(index)
     }
 }
