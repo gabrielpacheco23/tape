@@ -23,6 +23,7 @@ pub type Program = Vec<OpCode>;
 const TAPE_CAP: usize = 30_000;
 
 // TODO: make a `Tape` struct that handles the tape
+// maybe using `MaybeUninit`
 pub struct Vm {
     tape: [u8; TAPE_CAP],
     index: usize,
