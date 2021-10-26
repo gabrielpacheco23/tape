@@ -1,32 +1,104 @@
-make tape[30]
+make tape[7]
 make ptr: idx
 
-incr tape[ptr] +9
+incr tape[ptr]
++7
+
 loop (
-  incr ptr incr tape[ptr] +7
-  incr ptr incr tape[ptr] +10
-  incr ptr incr tape[ptr] +9
-  incr ptr incr tape[ptr] +3
-  incr ptr incr tape[ptr] +2
-  incr ptr incr tape[ptr] +7
-  incr ptr incr tape[ptr] +11
-  incr ptr incr tape[ptr] +10
-  incr ptr incr tape[ptr] +9
-  incr ptr incr tape[ptr] +10
-  incr ptr incr tape[ptr] +2
-  incr ptr incr tape[ptr]
-  decr ptr +11 decr tape[ptr]
+  incr ptr
+  incr tape[ptr]
+  +3
+
+  loop (
+    incr ptr
+    incr tape[ptr]
+    +1
+
+    incr ptr
+    incr tape[ptr]
+    +2 
+
+    incr ptr
+    incr tape[ptr]
+    +2
+
+    incr ptr
+    incr tape[ptr]
+    decr ptr
+    +3 
+    
+    decr tape[ptr]
+  )
+
+  incr ptr
+  incr tape[ptr]
+
+  incr ptr
+  incr tape[ptr]
+
+  incr ptr
+  decr tape[ptr]
+
+  incr ptr
+  +1
+
+  incr tape[ptr]
+
+  loop (
+    decr ptr
+  )
+
+  decr ptr
+  decr tape[ptr]
 )
 
-incr ptr decr tape[ptr] putch
-incr ptr decr tape[ptr] +1 putch
-incr ptr decr tape[ptr] +2 putch
-incr ptr incr tape[ptr] +3 putch
-incr ptr incr tape[ptr] +1 putch
-incr ptr decr tape[ptr] +2 putch
-incr ptr decr tape[ptr] +2 putch
-incr ptr putch
-incr ptr putch
-incr ptr incr tape[ptr] putch
-incr ptr incr tape[ptr] +2 putch
-incr ptr putch
+incr ptr
++1
+putch
+
+incr ptr
+decr tape[ptr]
++2
+putch
+
+incr tape[ptr]
++6
+putch
+
++1
+incr tape[ptr]
++2
+putch
+
+incr ptr
++1
+putch
+
+decr ptr
+decr tape[ptr]
+putch
+
+decr ptr
+putch
+
+incr tape[ptr]
++2
+putch
+
+decr tape[ptr]
++5
+putch
+
+decr tape[ptr]
++7
+putch
+
+incr ptr
++1
+incr tape[ptr]
+putch
+
+incr ptr
+incr tape[ptr]
++1
+putch
