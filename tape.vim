@@ -15,6 +15,7 @@ syn keyword tapeKeywords incr decr putch getch debug nextgroup=identifier skipwh
 syn keyword tapeKeywords loop nextgroup=loopBlock skipwhite
 "syn region loopBlock start='(' end=')' fold transparent contains=keyword,identifier,repeatStmt
 "syn region tapeAccess start='\[' end=']' fold transparent contains=identifier,number
+syn region commentRegion start='#!' end='\n' fold
 
 let b:current_syntax = "tape"
 
@@ -22,6 +23,7 @@ hi def link identifier    Identifier
 hi def link repeatStmt    Constant
 hi def link tapeKeywords  Statement
 hi def link makeKeyword   Statement
+hi def link commentRegion      PreProc
 "hi def link loopBlock     PreProc
 "hi def link tapeAccess    PreProc
 

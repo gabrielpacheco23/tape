@@ -1,8 +1,10 @@
+#! This program outputs the letter A and a newline character
+
 make tape[3]
-make ptr: idx 
+make ptr: idx   #! ptr is now the name of the idx
 
 incr tape[ptr]
-+4
++4 
 
 loop (
     incr ptr
