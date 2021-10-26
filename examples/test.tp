@@ -1,0 +1,26 @@
+make tape[3]
+make ptr: idx 
+
+incr tape[ptr]
++4
+
+loop (
+    incr ptr
+    incr tape[ptr]
+    +11
+    incr ptr
+    incr tape[ptr]
+    +1
+
+    decr ptr
+    +1
+    decr tape[ptr]
+)
+
+incr ptr
+incr tape[ptr]
++4
+putch
+
+incr ptr
+putch
