@@ -1,0 +1,12 @@
+make tape[2]
+make ptr: idx
+
+incr tape[ptr]
++64
+putch
+
+incr ptr
+incr tape[ptr]
++9
+putch
+
