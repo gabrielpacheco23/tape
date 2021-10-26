@@ -6,6 +6,7 @@ Tape is a cell-based, brainfuck-like programming language that has a readable sy
 ## Example
 
 ```
+#! This program outputs the letter A and a newline character
 make tape[3]
 make ptr: idx
 

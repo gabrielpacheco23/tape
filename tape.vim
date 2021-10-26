@@ -19,11 +19,11 @@ syn region commentRegion start='#!' end='\n' fold
 
 let b:current_syntax = "tape"
 
-hi def link identifier    Identifier
-hi def link repeatStmt    Constant
-hi def link tapeKeywords  Statement
-hi def link makeKeyword   Statement
-hi def link commentRegion      PreProc
+hi def link identifier      Identifier
+hi def link repeatStmt      Constant
+hi def link tapeKeywords    Statement
+hi def link makeKeyword     Statement
+hi def link commentRegion   Comment
 "hi def link loopBlock     PreProc
 "hi def link tapeAccess    PreProc
 
