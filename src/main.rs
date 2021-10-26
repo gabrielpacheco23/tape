@@ -11,8 +11,7 @@ use std::env;
 use std::fs;
 use vm::{Program, Vm};
 
-// TODO: make a function that translates
-// brainfuck to tape for testing tape capacity
+// TODO: make this "compilable" to asm
 
 fn main() {
     let args: Vec<String> = env::args().collect();
