@@ -23,39 +23,54 @@ impl Compiler {
         self.program.push(op);
     }
 
-    fn declare_vars(&mut self) {
+    fn make_tape_variable(&mut self) {
         self.parser.consume(TokenType::Ident);
         let var_name = self.parser.previous.clone().lexeme;
 
-        if self.parser.matches(TokenType::LeftBrace) {
-            self.parser.consume(TokenType::Number);
-            let num_token = self.parser.previous.clone();
-            let num = match num_token.lexeme.parse::<usize>() {
-                Ok(num) => num,
-                Err(_) => self.parser.error_at_current("Could not parse number"),
-            };
-
-            self.tape_name = var_name;
-            self.parser.consume(TokenType::RightBrace);
-            self.emit(OpCode::MakeTape(num));
-        } else if self.parser.matches(TokenType::Colon) {
+        if !self.parser.matches(TokenType::LeftBrace) {
+            self.default_make_tape();
+            self.parser.consume(TokenType::Colon);
             self.idx_name = var_name;
             self.parser.consume_fixed(TokenType::Ident, "idx");
+            return;
         }
+
+        self.parser.consume(TokenType::Number);
+        let num_token = self.parser.previous.clone();
+        let num = match num_token.lexeme.parse::<usize>() {
+            Ok(num) => num,
+            Err(_) => self.parser.error_at_current("Could not parse number"),
+        };
+
+        self.tape_name = var_name.to_owned();
+        self.parser.consume(TokenType::RightBrace);
+        self.emit(OpCode::MakeTape(num));
     }
 
-    fn default_make(&mut self) {
+    fn default_make_tape(&mut self) {
         self.emit(OpCode::MakeTape(30_000));
     }
 
-    // TODO: make this work, going wrong:
-    // `make ptr: idx`
-    fn make_decls(&mut self) {
+    fn make_tape_decl(&mut self) {
         if self.parser.matches(TokenType::Make) {
-            self.declare_vars();
+            self.make_tape_variable();
         } else {
-            self.default_make();
-            self.statement();
+            self.default_make_tape();
+        }
+    }
+
+    fn make_idx_variable(&mut self) {
+        self.parser.consume(TokenType::Ident);
+        let var_name = self.parser.previous.clone().lexeme;
+
+        self.parser.consume(TokenType::Colon);
+        self.idx_name = var_name.to_owned();
+        self.parser.consume_fixed(TokenType::Ident, "idx");
+    }
+
+    fn make_idx_decl(&mut self) {
+        if self.parser.matches(TokenType::Make) {
+            self.make_idx_variable();
         }
     }
 
@@ -174,9 +189,7 @@ impl Compiler {
         let num_token = self.parser.previous.clone();
         let num = match num_token.lexeme.parse::<usize>() {
             Ok(num) => num,
-            Err(_) => {
-                self.parser.error_at_current("Could not parse number");
-            }
+            Err(_) => self.parser.error_at_current("Could not parse number"),
         };
 
         let last_op = self
@@ -215,8 +228,9 @@ impl Compiler {
 
     pub fn compile(&mut self) -> Program {
         self.parser.advance();
-        // verify if we have a make tape decl
-        self.make_decls();
+        // always handles `make`s before everything
+        self.make_tape_decl();
+        self.make_idx_decl();
 
         while !self.parser.matches(TokenType::EOF) {
             self.statement();
