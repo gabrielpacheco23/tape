@@ -1,0 +1,28 @@
+#! truth-machine program
+make ptr: idx
+
+incr ptr +2
+getch
+putch
+loop (
+    loop (
+        decr tape[ptr]
+        incr ptr
+        incr tape[ptr]
+        decr ptr +1
+        incr tape[ptr]
+        incr ptr
+    )
+    incr ptr
+    decr tape[ptr]
+)
+
+decr ptr +2
+loop (
+    decr ptr +1
+)
+
+incr ptr
+loop (
+    putch
+)
