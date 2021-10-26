@@ -203,7 +203,7 @@ impl Compiler {
         }
     }
 
-    // nothing for a while
+    // TODO: make this debug statement
     fn debug_stmt(&mut self) {}
 
     fn statement(&mut self) {

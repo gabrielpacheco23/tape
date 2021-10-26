@@ -72,7 +72,15 @@ impl Vm {
                 }
                 PrintChar => print!("{}", self.tape[self.index] as char),
                 GetChar => {
-                    self.tape[self.index] = std::io::stdin().bytes().next().unwrap().unwrap()
+                    self.tape[self.index] = std::io::stdin()
+                        .bytes()
+                        .next()
+                        .and_then(|res| res.ok())
+                        .unwrap();
+                    //    // 2 because of the "\n" char
+                    //    let mut buf = [0; 2];
+                    //    std::io::stdin().read(&mut buf).unwrap();
+                    //    self.tape[self.index] = buf[0];
                 }
                 Jump(ref offset, kind) => match kind {
                     BracketKind::Open => {
