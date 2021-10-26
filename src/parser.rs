@@ -59,7 +59,7 @@ impl Parser {
     }
 
     pub fn error_at_current(&self, err: &str) -> ! {
-        println!("ERROR: {} at line {}", err, self.current.line);
+        eprintln!("ERROR: {} at line {}", err, self.current.line);
         std::process::exit(1);
     }
 }
