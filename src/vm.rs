@@ -84,7 +84,7 @@ impl Vm {
                     //    self.tape[self.index] = buf[0];
                 }
                 Debug => {
-                    println!("tape[{:?}]", self.tape);
+                    println!("{:#?}", self.tape);
                 }
                 Jump(ref offset, kind) => match kind {
                     BracketKind::Open => {
