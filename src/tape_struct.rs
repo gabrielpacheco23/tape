@@ -1,3 +1,4 @@
+use std::fmt::Debug;
 use std::ops::{Index, IndexMut};
 
 pub struct Tape {
@@ -33,5 +34,20 @@ impl Index<usize> for Tape {
 impl IndexMut<usize> for Tape {
     fn index_mut(&mut self, index: usize) -> &mut Self::Output {
         &mut self.array.as_mut().unwrap()[index]
+    }
+}
+
+impl Debug for Tape {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut buf = String::new();
+
+        for (i, b) in self.array.as_ref().unwrap().iter().enumerate() {
+            if i != 0 {
+                buf.push_str(", ");
+            }
+            buf.push_str(&format!("{}", b));
+        }
+
+        write!(f, "{}", buf)
     }
 }

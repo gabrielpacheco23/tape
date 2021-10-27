@@ -204,7 +204,9 @@ impl Compiler {
     }
 
     // TODO: make this debug statement
-    fn debug_stmt(&mut self) {}
+    fn debug_stmt(&mut self) {
+        self.emit(OpCode::Debug);
+    }
 
     fn statement(&mut self) {
         if self.parser.matches(TokenType::Incr) {

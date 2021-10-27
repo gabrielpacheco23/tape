@@ -17,6 +17,7 @@ pub enum OpCode {
     DecrCell,
     PrintChar,
     GetChar,
+    Debug,
     Jump(usize, BracketKind),
 }
 
@@ -81,6 +82,9 @@ impl Vm {
                     //    let mut buf = [0; 2];
                     //    std::io::stdin().read(&mut buf).unwrap();
                     //    self.tape[self.index] = buf[0];
+                }
+                Debug => {
+                    println!("tape[{:?}]", self.tape);
                 }
                 Jump(ref offset, kind) => match kind {
                     BracketKind::Open => {
