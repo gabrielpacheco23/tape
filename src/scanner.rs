@@ -26,7 +26,9 @@ pub enum TokenType {
 pub struct Token {
     pub typ: TokenType,
     pub lexeme: String,
+    #[allow(unused)]
     pub start: usize,
+    #[allow(unused)]
     pub len: usize,
     pub line: u32,
 }

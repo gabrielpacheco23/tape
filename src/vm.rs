@@ -1,6 +1,5 @@
-use std::io::Read;
-
 use crate::tape_struct::Tape;
+use std::io::Read;
 
 #[derive(Debug, Clone, Copy)]
 pub enum BracketKind {
@@ -10,6 +9,7 @@ pub enum BracketKind {
 
 #[derive(Debug, Copy, Clone)]
 pub enum OpCode {
+    #[allow(unused)]
     MakeTape(usize),
     IncrPtr,
     DecrPtr,
@@ -23,6 +23,7 @@ pub enum OpCode {
 
 pub type Program = Vec<OpCode>;
 
+#[allow(dead_code)]
 pub struct Vm {
     tape: Tape,
     index: usize,
@@ -36,7 +37,8 @@ impl Vm {
         }
     }
 
-    pub fn run(&mut self, program: &Program) {
+    #[allow(dead_code)]
+    pub fn run(&mut self, program: &Program) -> Result<(), &'static str> {
         use OpCode::*;
 
         let mut iter = 0;
@@ -64,11 +66,15 @@ impl Vm {
                 IncrCell => {
                     if self.tape[self.index] < u8::MAX {
                         self.tape[self.index] += 1;
+                    } else {
+                        return Err("An overflow occurred");
                     }
                 }
                 DecrCell => {
                     if self.tape[self.index] > 0 {
                         self.tape[self.index] -= 1;
+                    } else {
+                        return Err("An overflow occurred");
                     }
                 }
                 PrintChar => print!("{}", self.tape[self.index] as char),
@@ -78,8 +84,7 @@ impl Vm {
                         .next()
                         .and_then(|res| res.ok())
                         .unwrap();
-                    //    // 2 because of the "\n" char
-                    //    let mut buf = [0; 2];
+                    //    let mut buf = [0; 2];    // 2 because of the "\n" char
                     //    std::io::stdin().read(&mut buf).unwrap();
                     //    self.tape[self.index] = buf[0];
                 }
@@ -103,5 +108,6 @@ impl Vm {
             }
             iter += 1;
         }
+        Ok(())
     }
 }
