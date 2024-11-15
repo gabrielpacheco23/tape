@@ -18,7 +18,6 @@ incr ptr
 incr tape[ptr]
 +9
 putch
-    
 ```
 
 This code example prints the letter "A" followed by a newline character. Check the examples folder for the implementation using loops.
@@ -33,11 +32,15 @@ cargo build --release
 ## Usage
 To run using the bytecode VM:
 
-```tape <filename> ```
+```
+tape <filename> 
+```
 
 Using the JIT compiler:
 
-```tape --jit <filename> ```
+```
+tape --jit <filename>
+```
 
 The flag --verbose (or -v) outputs additional information:
 ```
