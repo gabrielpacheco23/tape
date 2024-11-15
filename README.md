@@ -25,9 +25,11 @@ This code example prints the letter "A" followed by a newline character. Check t
 
 ## Usage
 To run using the bytecode VM:
+
 ```tape <filename> ```
 
 Using the JIT compiler:
+
 ```tape --jit <filename> ```
 
 The flag --verbose (or -v) outputs additional information:
@@ -35,7 +37,6 @@ The flag --verbose (or -v) outputs additional information:
 [Using JIT compiler]
 
 Hello World!
-
  ```
 
 ## License
