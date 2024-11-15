@@ -23,6 +23,13 @@ putch
 
 This code example prints the letter "A" followed by a newline character. Check the examples folder for the implementation using loops.
 
+## Build
+To build the executable you must have cargo and rust installed.
+
+```
+cargo build --release
+```
+
 ## Usage
 To run using the bytecode VM:
 
