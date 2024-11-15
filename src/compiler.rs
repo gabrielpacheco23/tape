@@ -42,7 +42,7 @@ impl Compiler {
             Err(_) => self.parser.error_at_current("Could not parse number"),
         };
 
-        self.tape_name = var_name.to_owned();
+        self.tape_name = var_name;
         self.parser.consume(TokenType::RightBrace);
         self.emit(OpCode::MakeTape(num));
     }
@@ -64,7 +64,7 @@ impl Compiler {
         let var_name = self.parser.previous.clone().lexeme;
 
         self.parser.consume(TokenType::Colon);
-        self.idx_name = var_name.to_owned();
+        self.idx_name = var_name;
         self.parser.consume_fixed(TokenType::Ident, "idx");
     }
 
@@ -192,18 +192,16 @@ impl Compiler {
             Err(_) => self.parser.error_at_current("Could not parse number"),
         };
 
-        let last_op = self
+        let last_op = *self
             .program
             .last()
-            .expect("Cannot repeat invalid statement")
-            .clone();
+            .expect("Cannot repeat invalid statement");
 
         for _ in 0..num {
             self.emit(last_op);
         }
     }
 
-    // TODO: make this debug statement
     fn debug_stmt(&mut self) {
         self.emit(OpCode::Debug);
     }
