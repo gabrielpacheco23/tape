@@ -1,7 +1,7 @@
 # Tape
 
 ## A cell-based esoteric programming language with JIT compilation
-Tape is a cell-based, brainfuck-like programming language that has a readable syntax which features both a JIT compiler and a bytecode VM with a non-wasted array-like structure to manage memory.
+Tape is a cell-based, brainfuck-like programming language which features both a JIT compiler and a bytecode VM with a non-wasted array-like structure to manage memory.
 
 ## Example
 
