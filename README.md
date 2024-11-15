@@ -42,7 +42,7 @@ Using the JIT compiler:
 tape --jit <filename>
 ```
 
-The flag --verbose (or -v) outputs additional information:
+The flag ```--verbose``` (or -v) outputs additional information:
 ```
 [Using JIT compiler]
 
